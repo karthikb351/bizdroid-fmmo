@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="planets_array">
+        <item>Makeup Essentials</item>
+        <item>Eye Makeup</item>
+        <item>Diwali Special</item>
+        <item>Product Reviews</item>
+    </string-array>
+    
     <string name="app_name">Five Minute MakeOver</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 
 </resources>
