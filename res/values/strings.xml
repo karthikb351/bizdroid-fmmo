@@ -10,7 +10,7 @@
     
     
     <string-array name="features_array">
-        <item>Features</item>
+        <item>Favorites</item>
         <item>Video Wall</item>
     </string-array>
     
@@ -18,5 +18,7 @@
     <string name="action_settings">Settings</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="categories">CATEGORIES</string>
+    <string name="features">FEATURES</string>
 
 </resources>

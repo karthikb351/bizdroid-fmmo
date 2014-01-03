@@ -1,6 +1,7 @@
 package np.bizdroid.fmmo;
 
 import android.app.ActionBar;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -10,17 +11,23 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class TitleActivity extends ActionBarActivity {
 	
 	private DrawerLayout mDrawerLayout;
+	private LinearLayout navBar;
     private ListView mCategoriesList;
     private ListView mFeaturesList;
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] mEntries;
     private String mTitle;
     private String mDrawerTitle;
+    
+    private TextView categories;
+    private TextView features;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +38,30 @@ public class TitleActivity extends ActionBarActivity {
         
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mCategoriesList = (ListView) findViewById(R.id.category_list);
-        //mFeaturesList = (ListView) findViewById(R.id.features_list);
+        mFeaturesList = (ListView) findViewById(R.id.features_list);
+        navBar = (LinearLayout) findViewById(R.id.navbar_layout);
+        
+        //declaring categories and features for underlining them
+        categories = (TextView) findViewById(R.id.categories);
+        features = (TextView) findViewById(R.id.features);
+        Paint paint = new Paint();
+        paint.setARGB(0, 255, 245, 245);
+        paint.setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        categories.setPaintFlags(paint.getFlags());
+        categories.setText(R.string.categories);
+        features.setPaintFlags(paint.getFlags());
+        features.setText(R.string.features);
 
         mEntries = getResources().getStringArray(R.array.categories_array);
         mCategoriesList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mEntries));
 
-        mEntries = getResources().getStringArray(R.array.categories_array);
-        //mFeaturesList.setAdapter(new ArrayAdapter<String>(this,
-         //       R.layout.drawer_list_item, mEntries));
+        mEntries = getResources().getStringArray(R.array.features_array);
+        mFeaturesList.setAdapter(new ArrayAdapter<String>(this,
+               R.layout.drawer_list_item, mEntries));
         // Set the list's click listener
         mCategoriesList.setOnItemClickListener(new DrawerItemClickListener());
-        //mFeaturesList.setOnItemClickListener(new DrawerItemClickListener());
+        mFeaturesList.setOnItemClickListener(new DrawerItemClickListener());
         
         
         // enable ActionBar app icon to behave as action to toggle nav drawer
@@ -98,7 +117,7 @@ public class TitleActivity extends ActionBarActivity {
         // Highlight the selected item, update the title, and close the drawer
         mCategoriesList.setItemChecked(position, true);
         setTitle(mEntries[position]);
-        mDrawerLayout.closeDrawer(mCategoriesList);
+        mDrawerLayout.closeDrawer(navBar);
     }
 
     @Override

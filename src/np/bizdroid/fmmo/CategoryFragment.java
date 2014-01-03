@@ -29,6 +29,7 @@ public class CategoryFragment extends Fragment {
                 break;
             case 1 : view.setBackgroundColor(Color.parseColor("#333333"));
                 break;
+            default : view.setBackgroundResource(R.color.background);
         }
         return view;
     }
