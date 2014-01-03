@@ -15,9 +15,10 @@ import android.widget.ListView;
 public class TitleActivity extends ActionBarActivity {
 	
 	private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
+    private ListView mCategoriesList;
+    private ListView mFeaturesList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private String[] mPlanetTitles;
+    private String[] mEntries;
     private String mTitle;
     private String mDrawerTitle;
 
@@ -28,15 +29,21 @@ public class TitleActivity extends ActionBarActivity {
         
         mTitle = mDrawerTitle = getTitle().toString();
         
-        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mCategoriesList = (ListView) findViewById(R.id.category_list);
+        //mFeaturesList = (ListView) findViewById(R.id.features_list);
 
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mPlanetTitles));
+        mEntries = getResources().getStringArray(R.array.categories_array);
+        mCategoriesList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, mEntries));
+
+        mEntries = getResources().getStringArray(R.array.categories_array);
+        //mFeaturesList.setAdapter(new ArrayAdapter<String>(this,
+         //       R.layout.drawer_list_item, mEntries));
         // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mCategoriesList.setOnItemClickListener(new DrawerItemClickListener());
+        //mFeaturesList.setOnItemClickListener(new DrawerItemClickListener());
+        
         
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -89,9 +96,9 @@ public class TitleActivity extends ActionBarActivity {
                        .commit();
 
         // Highlight the selected item, update the title, and close the drawer
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mPlanetTitles[position]);
-        mDrawerLayout.closeDrawer(mDrawerList);
+        mCategoriesList.setItemChecked(position, true);
+        setTitle(mEntries[position]);
+        mDrawerLayout.closeDrawer(mCategoriesList);
     }
 
     @Override

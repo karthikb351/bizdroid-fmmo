@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="planets_array">
+    <string-array name="categories_array">
         <item>Makeup Essentials</item>
         <item>Eye Makeup</item>
         <item>Diwali Special</item>
         <item>Product Reviews</item>
+    </string-array>
+    
+    
+    <string-array name="features_array">
+        <item>Features</item>
+        <item>Video Wall</item>
     </string-array>
     
     <string name="app_name">Five Minute MakeOver</string>
