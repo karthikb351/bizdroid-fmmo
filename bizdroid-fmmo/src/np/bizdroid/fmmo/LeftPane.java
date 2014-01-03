@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class LeftPane extends Fragment {
+	public static View v;
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
  
-        View v = inflater.inflate(R.layout.nav, container, false);
+		try {
+        v = inflater.inflate(R.layout.nav, container, false);
  
         //v.setBackgroundColor(Color.BLUE);
 //        TextView tv = (TextView)v.findViewById(R.id.textView);
@@ -32,6 +35,10 @@ public class LeftPane extends Fragment {
         StableArrayAdapter adapter = new StableArrayAdapter(container.getContext(),
                 android.R.layout.simple_list_item_single_choice, list);
         list_cat.setAdapter(adapter);
+		 } catch (InflateException e) {
+	 	        /* map is already there, just return view as it is */
+	 	    }
+	        
         return v;
     }
 	private class StableArrayAdapter extends ArrayAdapter<String> {

@@ -16,5 +16,13 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    
+<style name="myTheme" parent="AppBaseTheme">
+    <!-- If you want to use the default ViewPagerIndicator-styles, use the following: -->
+    <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
+
+    <!-- Put whatever other styles you want to define in your custom theme -->
+</style>
 
 </resources>

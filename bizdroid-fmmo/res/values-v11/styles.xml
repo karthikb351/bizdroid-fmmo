@@ -7,5 +7,11 @@
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
         <!-- API 11 theme customizations can go here. -->
     </style>
+    <style name="myTheme" parent="AppBaseTheme">
+    <!-- If you want to use the default ViewPagerIndicator-styles, use the following: -->
+    <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
+
+    <!-- Put whatever other styles you want to define in your custom theme -->
+</style>
 
 </resources>

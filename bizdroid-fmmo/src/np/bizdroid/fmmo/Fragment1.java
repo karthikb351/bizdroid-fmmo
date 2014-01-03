@@ -14,7 +14,7 @@ public class Fragment1 extends Fragment {
 
         View view = inflater.inflate(R.layout.pulse, container, false);
         TextView textView = (TextView) view.findViewById(R.id.textView1);
-        textView.setText(getArguments().getString("title"));
+        textView.setText("Tab 2");
         return view;
     }
 }
