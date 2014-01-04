@@ -88,6 +88,7 @@ public class TitleActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_background));
+        getSupportActionBar().setIcon(getResources().getDrawable(R.drawable.action_bar_text_padded));
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         
         // ActionBarDrawerToggle ties together the the proper interactions
