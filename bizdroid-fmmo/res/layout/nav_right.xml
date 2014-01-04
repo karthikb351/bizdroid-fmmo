@@ -22,7 +22,7 @@
 	    android:id="@+id/indicator"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        style="@style/Theme.PageIndicatorDefaults" />
+        style="@style/myTheme" />
 
 	    <android.support.v4.view.ViewPager
 	        android:id="@+id/pager"

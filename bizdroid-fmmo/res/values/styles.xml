@@ -18,11 +18,10 @@
     </style>
     
     
-<style name="myTheme" parent="AppBaseTheme">
+<style name="myTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+
     <!-- If you want to use the default ViewPagerIndicator-styles, use the following: -->
     <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
-
-    <!-- Put whatever other styles you want to define in your custom theme -->
 </style>
 
 </resources>

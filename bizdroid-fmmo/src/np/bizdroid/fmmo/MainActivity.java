@@ -25,9 +25,9 @@ public class MainActivity extends FragmentActivity {
 	    mPane.openPane();
 	 
 	    getSupportFragmentManager().beginTransaction()
-	        .add(R.id.pane1, new LeftPane(), "pane1").commit();
+	        .add(R.id.pane1, new RightPane(), "pane1").commit();
 	    getSupportFragmentManager().beginTransaction()
-	        .add(R.id.pane2, new RightPane(), "pane2").commit();
+	        .add(R.id.pane2, new PlaylistFragment(), "pane2").commit();
 		
 	}
 
