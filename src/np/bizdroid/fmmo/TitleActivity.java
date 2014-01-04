@@ -1,19 +1,25 @@
 package np.bizdroid.fmmo;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +35,12 @@ public class TitleActivity extends ActionBarActivity {
     private String mTitle;
     private String mDrawerTitle;
     
+    private ExpandableHeightListView latestList;
+    private ExpandableHeightListView trendingList;
+    private ExpandableHeightListView recommendedList;
+    
+    private CustomAdapter adapter;
+    
     private TextView categories;
     private TextView features;
 
@@ -43,6 +55,10 @@ public class TitleActivity extends ActionBarActivity {
         mCategoriesList = (ListView) findViewById(R.id.category_list);
         mFeaturesList = (ListView) findViewById(R.id.features_list);
         navBar = (LinearLayout) findViewById(R.id.navbar_layout);
+        
+        latestList = (ExpandableHeightListView) findViewById(R.id.latest_list);
+        trendingList = (ExpandableHeightListView) findViewById(R.id.trending_list);
+        recommendedList = (ExpandableHeightListView) findViewById(R.id.recommended_list);
         
         //declaring categories and features for underlining them
         categories = (TextView) findViewById(R.id.categories);
@@ -97,6 +113,18 @@ public class TitleActivity extends ActionBarActivity {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        
+        /**setting up main activity**/
+        String names[] = {"Video1", "Video2"};
+        String views[] = {"10,000 views", "200 views"};
+        Drawable images[] = {getResources().getDrawable(R.drawable.pic), getResources().getDrawable(R.drawable.pic)};
+        adapter = new CustomAdapter(names, views, images);
+        latestList.setAdapter(adapter);
+        trendingList.setAdapter(adapter);
+        recommendedList.setAdapter(adapter);
+        latestList.setExpanded(true);
+        trendingList.setExpanded(true);
+        recommendedList.setExpanded(true);
     }
     
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -113,7 +141,7 @@ public class TitleActivity extends ActionBarActivity {
         Bundle args = new Bundle();
         args.putInt(CategoryFragment.KEY_POS, position);
         fragment.setArguments(args);
-
+        
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
@@ -124,6 +152,7 @@ public class TitleActivity extends ActionBarActivity {
         mCategoriesList.setItemChecked(position, true);
         setTitle(mEntries[position]);
         mDrawerLayout.closeDrawer(navBar);
+        
     }
 
     @Override
@@ -171,6 +200,52 @@ public class TitleActivity extends ActionBarActivity {
         default:
             return super.onOptionsItemSelected(item);
         }
+    }
+    
+    private class CustomAdapter extends BaseAdapter {
+
+    	private String[] vidName;
+    	private String[] vidViews;
+    	private Drawable[] images;
+    	
+    	public CustomAdapter(String[] vidName, String[] vidViews, Drawable[] images) {
+    		this.vidName = vidName;
+    		this.vidViews = vidViews;
+    		this.images = images;
+    	}
+    	
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return vidName.length;
+		}
+
+		@Override
+		public Object getItem(int arg0) {
+			// TODO Auto-generated method stub
+			return vidName[arg0];
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = layoutInflater.inflate(R.layout.card_layout, parent, false);
+			TextView videoName = (TextView) convertView.findViewById(R.id.card_name_textview);
+			TextView videoViews = (TextView) convertView.findViewById(R.id.card_views_textview);
+			ImageView image = (ImageView) convertView.findViewById(R.id.card_imageview);
+			videoName.setText(vidName[position]);
+			videoViews.setText(vidViews[position]);
+			image.setImageDrawable(images[position]);
+			return convertView;
+		}
+    	
     }
     
 }

@@ -21,5 +21,9 @@
     <string name="action_websearch">Web search</string>
     <string name="categories">CATEGORIES</string>
     <string name="features">FEATURES</string>
+    <string name="latest_makeovers">Latest Makeovers</string>
+    <string name="trending_now">Trending Now</string>
+    <string name="recommended">Recommended For You</string>
+    <string name="card_imageview">Card ImageView</string>
 
 </resources>
