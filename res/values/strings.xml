@@ -25,5 +25,5 @@
     <string name="trending_now">Trending Now</string>
     <string name="recommended">Recommended For You</string>
     <string name="card_imageview">Card ImageView</string>
-
+	<string name="home">Home</string>
 </resources>

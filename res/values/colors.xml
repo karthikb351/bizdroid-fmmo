@@ -3,6 +3,7 @@
     
     <color name="background">#eeeeee</color>
     <color name="dark_gray">#dddddd</color>
+    <color name="light_gray">#dfdfdf</color>
     <color name="transparent">#00000000</color>
     <color name="dark_pink">#c14f4f</color>
     <color name="pink">#e35d5d</color>

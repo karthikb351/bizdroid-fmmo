@@ -4,68 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- The main content view -->
-    <ScrollView
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:scrollbars="none">
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:background="@color/background"
-        android:orientation="vertical">
-        
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-        	android:layout_marginTop="16dp"
-            android:text="@string/latest_makeovers"
-            android:textSize="22sp"
-            android:textStyle="italic"/>
-        
-        <np.bizdroid.fmmo.ExpandableHeightListView
-            android:id="@+id/latest_list"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-        	android:layout_marginTop="16dp"
-            android:divider="@color/background"
-            android:dividerHeight="8dp"/>
-        
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-        	android:layout_marginTop="16dp"
-            android:text="@string/trending_now"
-            android:textSize="22sp"
-            android:textStyle="italic"/>
-        
-        <np.bizdroid.fmmo.ExpandableHeightListView
-            android:id="@+id/trending_list"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent" 
-        	android:layout_marginTop="16dp"
-            android:divider="@color/background"
-            android:dividerHeight="8dp"/>
-        
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"            
-        	android:layout_marginTop="16dp"
-            android:text="@string/recommended"
-            android:textSize="22sp"
-            android:textStyle="italic"/>
-        
-        <np.bizdroid.fmmo.ExpandableHeightListView
-            android:id="@+id/recommended_list"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"            
-        	android:layout_marginTop="16dp"
-        	android:layout_marginBottom="16dp" 
-            android:divider="@color/background"
-            android:dividerHeight="8dp"/>
-    </LinearLayout>
-    </ScrollView>
+    
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"

@@ -1,25 +1,20 @@
 package np.bizdroid.fmmo;
 
 import android.app.ActionBar;
-import android.content.Context;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,18 +26,15 @@ public class TitleActivity extends ActionBarActivity {
     private ListView mCategoriesList;
     private ListView mFeaturesList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private String[] mEntries;
+    private String[] categoryEntries;
+    private String[] featureEntries;
     private String mTitle;
     private String mDrawerTitle;
     
-    private ExpandableHeightListView latestList;
-    private ExpandableHeightListView trendingList;
-    private ExpandableHeightListView recommendedList;
-    
-    private CustomAdapter adapter;
     
     private TextView categories;
     private TextView features;
+    private TextView homeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +47,7 @@ public class TitleActivity extends ActionBarActivity {
         mCategoriesList = (ListView) findViewById(R.id.category_list);
         mFeaturesList = (ListView) findViewById(R.id.features_list);
         navBar = (LinearLayout) findViewById(R.id.navbar_layout);
-        
-        latestList = (ExpandableHeightListView) findViewById(R.id.latest_list);
-        trendingList = (ExpandableHeightListView) findViewById(R.id.trending_list);
-        recommendedList = (ExpandableHeightListView) findViewById(R.id.recommended_list);
+        homeTextView = (TextView) findViewById(R.id.home_textview);
         
         //declaring categories and features for underlining them
         categories = (TextView) findViewById(R.id.categories);
@@ -71,16 +60,70 @@ public class TitleActivity extends ActionBarActivity {
         features.setPaintFlags(paint.getFlags());
         features.setText(R.string.features);
 
-        mEntries = getResources().getStringArray(R.array.categories_array);
+        categoryEntries = getResources().getStringArray(R.array.categories_array);
         mCategoriesList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mEntries));
+                R.layout.drawer_list_item, categoryEntries));
 
-        mEntries = getResources().getStringArray(R.array.features_array);
+        featureEntries = getResources().getStringArray(R.array.features_array);
         mFeaturesList.setAdapter(new ArrayAdapter<String>(this,
-               R.layout.drawer_list_item, mEntries));
+               R.layout.drawer_list_item, featureEntries));
+        showHome();
         // Set the list's click listener
-        mCategoriesList.setOnItemClickListener(new DrawerItemClickListener());
-        mFeaturesList.setOnItemClickListener(new DrawerItemClickListener());
+        homeTextView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				showHome();
+			}
+		});
+        mCategoriesList.setOnItemClickListener(new ListView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+		        Fragment fragment = new Fragments();
+		        Bundle args = new Bundle();
+		        args.putInt(Fragments.KEY_POS, position);
+		        args.putInt(Fragments.KEY_LIST, 2);
+		        fragment.setArguments(args);
+		        
+		        // Insert the fragment by replacing any existing fragment
+		        FragmentManager fragmentManager = getSupportFragmentManager();
+		        fragmentManager.beginTransaction()
+		                       .replace(R.id.content_frame, fragment)
+		                       .commit();
+
+		        // Highlight the selected item, update the title, and close the drawer
+		        mCategoriesList.setItemChecked(position, true);
+		        setTitle(categoryEntries[position]);
+		        mDrawerLayout.closeDrawer(navBar);
+			}
+        	
+		});
+        mFeaturesList.setOnItemClickListener(new ListView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				Fragment fragment = new Fragments();
+		        Bundle args = new Bundle();
+		        args.putInt(Fragments.KEY_POS, position);
+		        args.putInt(Fragments.KEY_LIST, 3);
+		        fragment.setArguments(args);
+		        
+		        // Insert the fragment by replacing any existing fragment
+		        FragmentManager fragmentManager = getSupportFragmentManager();
+		        fragmentManager.beginTransaction()
+		                       .replace(R.id.content_frame, fragment)
+		                       .commit();
+
+		        // Highlight the selected item, update the title, and close the drawer
+		        mFeaturesList.setItemChecked(position, true);
+		        setTitle(featureEntries[position]);
+		        mDrawerLayout.closeDrawer(navBar);
+				
+			}
+        });
         
         
         // enable ActionBar app icon to behave as action to toggle nav drawer
@@ -116,31 +159,13 @@ public class TitleActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         
         /**setting up main activity**/
-        String names[] = {"Video1", "Video2"};
-        String views[] = {"10,000 views", "200 views"};
-        Drawable images[] = {getResources().getDrawable(R.drawable.pic), getResources().getDrawable(R.drawable.pic)};
-        adapter = new CustomAdapter(names, views, images);
-        latestList.setAdapter(adapter);
-        trendingList.setAdapter(adapter);
-        recommendedList.setAdapter(adapter);
-        latestList.setExpanded(true);
-        trendingList.setExpanded(true);
-        recommendedList.setExpanded(true);
     }
     
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
-
-    /** Swaps fragments in the main content view */
-    private void selectItem(int position) {
-        // Create a new fragment and specify the planet to show based on position
-        Fragment fragment = new CategoryFragment();
+    private void showHome() {
+		Fragment fragment = new Fragments();
         Bundle args = new Bundle();
-        args.putInt(CategoryFragment.KEY_POS, position);
+        args.putInt(Fragments.KEY_POS, 0);
+        args.putInt(Fragments.KEY_LIST, 1);
         fragment.setArguments(args);
         
         // Insert the fragment by replacing any existing fragment
@@ -150,12 +175,10 @@ public class TitleActivity extends ActionBarActivity {
                        .commit();
 
         // Highlight the selected item, update the title, and close the drawer
-        mCategoriesList.setItemChecked(position, true);
-        setTitle(mEntries[position]);
+        setTitle(R.string.home);
         mDrawerLayout.closeDrawer(navBar);
-        
     }
-
+    
     @Override
     public void setTitle(CharSequence title) {
         String mTitle = title.toString();
@@ -202,51 +225,6 @@ public class TitleActivity extends ActionBarActivity {
             return super.onOptionsItemSelected(item);
         }
     }
-    
-    private class CustomAdapter extends BaseAdapter {
 
-    	private String[] vidName;
-    	private String[] vidViews;
-    	private Drawable[] images;
-    	
-    	public CustomAdapter(String[] vidName, String[] vidViews, Drawable[] images) {
-    		this.vidName = vidName;
-    		this.vidViews = vidViews;
-    		this.images = images;
-    	}
-    	
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return vidName.length;
-		}
-
-		@Override
-		public Object getItem(int arg0) {
-			// TODO Auto-generated method stub
-			return vidName[arg0];
-		}
-
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = layoutInflater.inflate(R.layout.card_layout, parent, false);
-			TextView videoName = (TextView) convertView.findViewById(R.id.card_name_textview);
-			TextView videoViews = (TextView) convertView.findViewById(R.id.card_views_textview);
-			ImageView image = (ImageView) convertView.findViewById(R.id.card_imageview);
-			videoName.setText(vidName[position]);
-			videoViews.setText(vidViews[position]);
-			image.setImageDrawable(images[position]);
-			return convertView;
-		}
-    	
-    }
     
 }
